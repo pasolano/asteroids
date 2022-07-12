@@ -34,3 +34,6 @@
 # Build directories
 debug/
 release/
+
+# Development environment specific
+.vscode/

@@ -1,43 +1,35 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 #include <iostream>
+#include "Ship.hpp"
+#include "KeyData.hpp"
 
 float speed = 100;
 
 sf::Clock cloc;
 
-enum Action {Left, Right, Up, Down};
-std::map<int, Action> keymap {{71, Left}, {72, Right}, {73, Up}, {74, Down}};
-std::map<Action, bool> keystate{{Left, false}, {Right, false}, {Up, false}, {Down, false}};
+sf::Vector2<float> getAcc(float mov) {
+    sf::Vector2<float> acc;
 
-void setKeyState(bool pressed, int keycode) {
-    auto temp = keymap.find(keycode);
-    if (temp != keymap.end()) {
-        Action action = temp->second;
-        keystate[action] = pressed;
+    if (KeyData::getKeyState(Left)) {
+        acc.x = -mov;
     }
-}
+    if (KeyData::getKeyState(Right)) {
+        acc.x = mov;
+    }
+    if (KeyData::getKeyState(Up)) {
+        acc.y = -mov;
+    }
+    if (KeyData::getKeyState(Down)) {
+        acc.y = mov;
+    }
 
-void updateShape(sf::Shape& shape, float mov) {
-    if (keystate[Left]) {
-        shape.move(-mov, 0.f);
-    }
-    if (keystate[Right]) {
-        shape.move(mov, 0.f);
-    }
-    if (keystate[Up]) {
-        shape.move(0.f, -mov);
-    }
-    if (keystate[Down]) {
-        shape.move(0.f, mov);
-    }
+    return acc;
 }
 
 int main()
 {
+    KeyData* kd = new KeyData();
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(20.f);
-    shape.setFillColor(sf::Color::Green);
+    Ship ship = Ship();
 
     while (window.isOpen())
     {
@@ -47,20 +39,23 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             else if (event.type == sf::Event::KeyPressed) {
-                setKeyState(true, event.key.code);
+                KeyData::setKeyState(event.key.code, true);
             }
             else if (event.type == sf::Event::KeyReleased) {
-                setKeyState(false, event.key.code);
+                KeyData::setKeyState(event.key.code, false);
             }
         }
 
         sf::Time time = cloc.restart();
-        long ms = time.asMicroseconds();
+        sf::Int64 ms = time.asMicroseconds();
         float mov = (ms * speed) / 1000000.f;
-        updateShape(shape, mov);
+
+        sf::Vector2<float> acc = getAcc(mov);
+
+        ship.move(acc);
 
         window.clear();
-        window.draw(shape);
+        window.draw(ship.shape);
         window.display();
     }
 

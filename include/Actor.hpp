@@ -5,12 +5,13 @@
 
 class Actor{
     protected:
-        sf::Vector2<float> velocity;
-        sf::Vector2<float> direction;
-        sf::Vector2<float> position;
+        sf::Vector2f velocity;
+        sf::Vector2f direction;
+        sf::Vector2f position;
 
     public:
         void accelerate(float, float);
-        void accelerate(sf::Vector2<float>);
+        void accelerate(sf::Vector2f&);
+        sf::Vector2f& getPosition();
         Actor();
 };

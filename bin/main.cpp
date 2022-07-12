@@ -6,25 +6,6 @@ float speed = 100;
 
 sf::Clock cloc;
 
-sf::Vector2<float> getAcc(float mov) {
-    sf::Vector2<float> acc;
-
-    if (KeyData::getKeyState(Left)) {
-        acc.x = -mov;
-    }
-    if (KeyData::getKeyState(Right)) {
-        acc.x = mov;
-    }
-    if (KeyData::getKeyState(Up)) {
-        acc.y = -mov;
-    }
-    if (KeyData::getKeyState(Down)) {
-        acc.y = mov;
-    }
-
-    return acc;
-}
-
 int main()
 {
     KeyData* kd = new KeyData();
@@ -46,13 +27,10 @@ int main()
             }
         }
 
-        sf::Time time = cloc.restart();
-        sf::Int64 ms = time.asMicroseconds();
-        float mov = (ms * speed) / 1000000.f;
+        sf::Time delta = cloc.restart();
+        ship.update(delta);
 
-        sf::Vector2<float> acc = getAcc(mov);
-
-        ship.move(acc);
+        ship.shape.setPosition(ship.getPosition());
 
         window.clear();
         window.draw(ship.shape);

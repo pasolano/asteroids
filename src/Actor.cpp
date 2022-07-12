@@ -7,10 +7,14 @@ Actor::Actor() {
 }
 
 void Actor::accelerate(float x, float y) {
-    auto acc = sf::Vector2<float>(x, y);
-    velocity += acc;
+    velocity.x += x;
+    velocity.y += y;
 }
 
-void Actor::accelerate(sf::Vector2<float> acc) {
-    velocity += acc;
+void Actor::accelerate(sf::Vector2f& acc) {
+    accelerate(acc.x, acc.y);
+}
+
+sf::Vector2f& Actor::getPosition() {
+    return position;
 }

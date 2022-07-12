@@ -1,11 +1,14 @@
+#include <SFML/System.hpp>
 #include "Actor.hpp"
+#include "KeyData.hpp"
 
 #pragma once
 
-class Ship : protected Actor {
+class Ship : public Actor {
+    float thrust = 0.1;
+
     public:
         sf::CircleShape shape;
         Ship();
-        void move(float, float);
-        void move(sf::Vector2<float>&);
+        void update(sf::Time&);
 };

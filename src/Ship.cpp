@@ -1,9 +1,13 @@
 #include "Ship.hpp"
 #include <iostream>
 
-Ship::Ship() {
-    shape = sf::CircleShape(20.f);
-    shape.setFillColor(sf::Color::Green);
+Ship::Ship(float radius, float thrust) {
+    this->thrust = thrust;
+    position = sf::Vector2f(50, 50); // TODO: center of screen based on dims
+    shape = new sf::CircleShape(radius, 3);
+    shape->setOrigin(radius, radius);
+    shape->setPosition(position);
+    shape->setFillColor(sf::Color::White);
 }
 
 static sf::Vector2f getAcc(float mov) {
@@ -37,4 +41,7 @@ void Ship::update(sf::Time& delta) {
 
     // update position
     position += velocity;
+
+    // update shape position
+    shape->setPosition(getPosition());
 }

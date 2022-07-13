@@ -5,10 +5,10 @@
 #pragma once
 
 class Ship : public Actor {
-    float thrust = 0.1;
+    float thrust;
+    float size;
 
     public:
-        sf::CircleShape shape;
-        Ship();
+        Ship(float, float);
         void update(sf::Time&);
 };

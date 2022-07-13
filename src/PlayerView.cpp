@@ -39,3 +39,20 @@ void PlayerView::draw(std::vector<Actor*>& actors) {
 
     window->display();
 }
+
+// checks for out of bounds
+// if yes, teleports actor to opposite end of screen
+void PlayerView::outOfBounds(Actor* actor) {
+    sf::Vector2f& pos = actor->getPosition();
+    float rad = actor->getRadius();
+    sf::Vector2u windims = window->getSize();
+
+    // top boundary
+    if (pos.y + rad < 0) pos.y = windims.y + rad;
+    // bottom
+    if (pos.y - rad > windims.y) pos.y = -rad;
+    // left
+    if (pos.x + rad < 0) pos.x = windims.x + rad;
+    // right
+    if (pos.x - rad > windims.x) pos.x = -rad;
+}

@@ -2,9 +2,10 @@
 
 // default constructor
 // face up
-Actor::Actor() {
+Actor::Actor(float r) {
     direction.y = -1;
     alive = true;
+    radius = r;
 }
 
 void Actor::accelerate(float x, float y) {
@@ -30,4 +31,8 @@ sf::Shape* Actor::getShape() {
 
 bool Actor::isAlive() {
     return alive;
+}
+
+float Actor::getRadius() {
+    return radius;
 }

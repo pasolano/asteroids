@@ -12,4 +12,5 @@ class PlayerView {
         bool isOpen();
         void draw(std::vector<Actor*>&);
         PlayerView();
+        void outOfBounds(Actor*);
 };

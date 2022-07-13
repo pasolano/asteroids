@@ -10,6 +10,7 @@ class Actor{
         sf::Vector2f velocity;
         sf::Vector2f direction;
         sf::Vector2f position;
+        float radius;
 
     public:
         void accelerate(float, float);
@@ -18,6 +19,7 @@ class Actor{
         virtual bool isVisible();
         bool isAlive();
         sf::Shape* getShape();
-        Actor();
+        Actor(float);
         virtual void update(sf::Time&) = 0;
+        float getRadius();
 };

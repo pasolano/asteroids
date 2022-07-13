@@ -2,7 +2,7 @@
 #include "VecMath.hpp"
 #include <iostream>
 
-Ship::Ship(float radius, float thrust, float rs) {
+Ship::Ship(float radius, float thrust, float rs) : Actor(radius){
     this->thrust = thrust;
     rotSpeed = rs;
     position = sf::Vector2f(50, 50); // TODO: center of screen based on dims

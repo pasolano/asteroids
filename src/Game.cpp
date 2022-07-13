@@ -20,6 +20,7 @@ void Game::update() {
 
     for (Actor* a : actors) {
         a->update(delta);
+        view->outOfBounds(a);
     }
 
     view->draw(actors);

@@ -1,47 +1,45 @@
 #include "Ship.hpp"
+#include "VecMath.hpp"
 #include <iostream>
 
-Ship::Ship(float radius, float thrust) {
+Ship::Ship(float radius, float thrust, float rs) {
     this->thrust = thrust;
-    position = sf::Vector2f(50, 50); // TODO: center of screen based on dims
+    rotSpeed = rs;
+    position = sf::Vector2f(20, 20); // TODO: center of screen based on dims
     shape = new sf::CircleShape(radius, 3);
     shape->setOrigin(radius, radius);
     shape->setPosition(position);
-    shape->setFillColor(sf::Color::White);
+    shape->setFillColor(sf::Color::Green);
 }
 
-static sf::Vector2f getAcc(float mov) {
-    sf::Vector2f acc;
-
+// TODO: apply delta
+void Ship::applyInput(float rotSpeed, float dCoef) {
     if (KeyData::getKeyState(Left)) {
-        acc.x = -mov;
+        rotateVector(direction, -rotSpeed, dCoef);
     }
     if (KeyData::getKeyState(Right)) {
-        acc.x = mov;
+        rotateVector(direction, rotSpeed, dCoef);
     }
     if (KeyData::getKeyState(Up)) {
-        acc.y = -mov;
+        velocity += direction * thrust * dCoef;
     }
     if (KeyData::getKeyState(Down)) {
-        acc.y = mov;
+        ;
     }
-
-    return acc;
 }
 
 // Update ship every frame
 void Ship::update(sf::Time& delta) {
     // calculate acceleration
     sf::Int64 ms = delta.asMicroseconds();
-    float mov = (ms * thrust) / 1000000.f;
-    auto acc = getAcc(mov);
-
-    // modify velocity
-    accelerate(acc);
+    float dCoef = ms / 1000000.f;
+    applyInput(rotSpeed, dCoef);
 
     // update position
     position += velocity;
 
     // update shape position
     shape->setPosition(getPosition());
+    sf::Vector2f unit = sf::Vector2f(0,0); // TODO move so not remade every frame
+    shape->setRotation(degBetVec(unit, direction));
 }

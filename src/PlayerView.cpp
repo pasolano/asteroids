@@ -4,7 +4,8 @@
 
 PlayerView::PlayerView() {
     auto vmode = sf::VideoMode::getDesktopMode();
-    window->create(sf::VideoMode(vmode.width, vmode.height), "Asteroids");
+    // window->create(sf::VideoMode(vmode.width, vmode.height), "Asteroids");
+    window->create(sf::VideoMode(200, 200), "Asteroids");
 }
 
 bool PlayerView::isOpen() {
@@ -15,6 +16,7 @@ void PlayerView::handleEvents() {
     sf::Event event;
     while (window->pollEvent(event))
     {
+        std::cout << event.type << std::endl;
         if (event.type == sf::Event::Closed)
             window->close();
         else if (event.type == sf::Event::KeyPressed) {

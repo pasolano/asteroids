@@ -6,9 +6,11 @@
 
 class Ship : public Actor {
     float thrust;
+    float rotSpeed;
     float size;
 
     public:
-        Ship(float, float);
+        Ship(float, float, float);
         void update(sf::Time&);
+        void applyInput(float, float);
 };

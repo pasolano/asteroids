@@ -31,6 +31,6 @@ Game::Game() {
     setOngoing(true);
     view = new PlayerView();
     
-    ship = new Ship(20, 0.1, 0.0002);
+    ship = new Ship(20, 0.1, 0.0006);
     actors.push_back(ship);
 }

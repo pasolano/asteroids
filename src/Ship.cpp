@@ -5,11 +5,12 @@
 Ship::Ship(float radius, float thrust, float rs) {
     this->thrust = thrust;
     rotSpeed = rs;
-    position = sf::Vector2f(20, 20); // TODO: center of screen based on dims
+    position = sf::Vector2f(50, 50); // TODO: center of screen based on dims
     shape = new sf::CircleShape(radius, 3);
     shape->setOrigin(radius, radius);
     shape->setPosition(position);
-    shape->setFillColor(sf::Color::Green);
+    shape->setFillColor(sf::Color::White);
+    shape->setScale(0.7, 1);
 }
 
 // TODO: apply delta
@@ -40,6 +41,7 @@ void Ship::update(sf::Time& delta) {
 
     // update shape position
     shape->setPosition(getPosition());
-    sf::Vector2f unit = sf::Vector2f(0,0); // TODO move so not remade every frame
+    sf::Vector2f unit = sf::Vector2f(0,-1); // TODO move so not remade every frame
+
     shape->setRotation(degBetVec(unit, direction));
 }

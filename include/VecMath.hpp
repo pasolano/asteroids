@@ -1,5 +1,6 @@
 #include <SFML/System.hpp>
 #include <cmath>
+#include <iostream>
 
 #pragma once
 
@@ -18,10 +19,15 @@ void rotateVector(sf::Vector2f& v, float rads, bool inRad, float dCoef = 1) {
     float old_x = v.x;
     v.x = (v.x * cDeg - v.y * sDeg) * dCoef;
     v.y = (old_x * sDeg + v.y * cDeg) * dCoef;
+
 }
 
 float dot(sf::Vector2f& v1, sf::Vector2f& v2) {
     return v1.x * v2.x + v1.y * v2.y;
+}
+
+float det(sf::Vector2f& v1, sf::Vector2f& v2) {
+    return v1.x * v2.y - v1.y * v2.x;
 }
 
 float lenOfVec(sf::Vector2f& v) {
@@ -29,5 +35,5 @@ float lenOfVec(sf::Vector2f& v) {
 }
 
 float degBetVec(sf::Vector2f& v1, sf::Vector2f& v2) {
-    return acos(dot(v1, v2) / (lenOfVec(v1) * lenOfVec(v2)));
+    return radToDeg(atan2(det(v1, v2), dot(v1, v2)));
 }

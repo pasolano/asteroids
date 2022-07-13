@@ -10,8 +10,6 @@ int main()
     KeyData* kd = new KeyData();
     Game* game = new Game();
 
-
-
     while (game->isOngoing())
     {
         game->update();

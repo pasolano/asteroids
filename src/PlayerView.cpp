@@ -5,6 +5,7 @@
 PlayerView::PlayerView() {
     auto vmode = sf::VideoMode::getDesktopMode();
     window->create(sf::VideoMode(vmode.width, vmode.height), "Asteroids", sf::Style::Fullscreen);
+    settings.antialiasingLevel = 8;
 }
 
 bool PlayerView::isOpen() {
@@ -61,4 +62,8 @@ void PlayerView::putInBounds(Actor* actor) {
 
 sf::Shape* PlayerView::updateShape(Actor* actor) {
     return actor->getShape();
+}
+
+sf::Vector2u PlayerView::getWinSize() {
+    return window->getSize();
 }

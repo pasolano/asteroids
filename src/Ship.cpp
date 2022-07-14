@@ -1,12 +1,14 @@
 #include "Ship.hpp"
 #include <iostream>
 
-Ship::Ship(float radius, float thrust, float rs) : Actor(radius){
+// yFrac is what fraction of the y-axis the ship should be compared to screen size
+Ship::Ship(float yFrac, float thrust, float rs, sf::Vector2u &winSize) : Actor(radius) {
+    float ySize = yFrac * winSize.y;
     this->thrust = thrust;
     rotSpeed = rs;
-    shape = new sf::CircleShape(radius, 3);
-    shape->setOrigin(radius, radius);
-    shape->setPosition(50, 50); // TODO: center of screen based on dims
+    shape = new sf::CircleShape(ySize, 3);
+    shape->setOrigin(ySize, ySize);
+    shape->setPosition(winSize.x / 2, winSize.y / 2);
     shape->setFillColor(sf::Color::White);
     shape->setScale(0.7, 1);
 }

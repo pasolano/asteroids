@@ -8,6 +8,7 @@
 class PlayerView {
     private:
         sf::RenderWindow* window = new sf::RenderWindow();
+        sf::ContextSettings settings;
     public:
         void handleEvents();
         bool isOpen();
@@ -15,4 +16,5 @@ class PlayerView {
         PlayerView();
         void putInBounds(Actor*);
         sf::Shape* updateShape(Actor*);
+        sf::Vector2u getWinSize(); 
 };

@@ -10,7 +10,7 @@ class Ship : public Actor {
     float size;
 
     public:
-        Ship(float, float, float);
+        Ship(float, float, float, sf::Vector2u&);
         void update(sf::Time&);
         void applyInput(float, float);
 };

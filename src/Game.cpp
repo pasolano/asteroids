@@ -32,6 +32,7 @@ Game::Game() {
     setOngoing(true);
     view = new PlayerView();
     
-    ship = new Ship(20, 0.02, 180);
+    sf::Vector2u winSize = view->getWinSize();
+    ship = new Ship(0.05, 0.02, 180, winSize);
     actors.push_back(ship);
 }

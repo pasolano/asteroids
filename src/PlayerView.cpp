@@ -55,6 +55,8 @@ void PlayerView::putInBounds(Actor* actor) {
     if (pos.x + rad < 0) pos.x = windims.x + rad;
     // right
     if (pos.x - rad > windims.x) pos.x = -rad;
+
+    actor->setPosition(pos);
 }
 
 sf::Shape* PlayerView::updateShape(Actor* actor) {

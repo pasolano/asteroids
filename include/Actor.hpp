@@ -23,4 +23,5 @@ class Actor{
         void rotate(float);
         float getRadius();
         float getRotation();
+        void setPosition(sf::Vector2f);
 };

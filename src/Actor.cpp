@@ -45,3 +45,7 @@ float Actor::getRotation() {
     // shape function returns degrees from Vector2(0, -1);
     return shape->getRotation() - 90;
 }
+
+void Actor::setPosition(sf::Vector2f pos) {
+    shape->setPosition(pos);
+}

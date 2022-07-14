@@ -1,28 +1,29 @@
 #include "Ship.hpp"
-#include "VecMath.hpp"
 #include <iostream>
 
 Ship::Ship(float radius, float thrust, float rs) : Actor(radius){
     this->thrust = thrust;
     rotSpeed = rs;
-    position = sf::Vector2f(50, 50); // TODO: center of screen based on dims
     shape = new sf::CircleShape(radius, 3);
     shape->setOrigin(radius, radius);
-    shape->setPosition(position);
+    shape->setPosition(50, 50); // TODO: center of screen based on dims
     shape->setFillColor(sf::Color::White);
     shape->setScale(0.7, 1);
 }
 
-// TODO: apply delta
 void Ship::applyInput(float rotSpeed, float dCoef) {
+    float rot = rotSpeed * dCoef;
+
     if (KeyData::getKeyState(Left)) {
-        rotateVector(direction, -rotSpeed, dCoef);
+        rotate(-rot);
     }
     if (KeyData::getKeyState(Right)) {
-        rotateVector(direction, rotSpeed, dCoef);
+        rotate(rot);
     }
     if (KeyData::getKeyState(Up)) {
-        velocity += direction * thrust * dCoef;
+        float currRot = getRotation(); // degrees from Vector2(1, 0);
+        sf::Vector2f acc = VecMath::vecAtDeg(currRot) * thrust * dCoef;
+        velocity += acc;
     }
     if (KeyData::getKeyState(Down)) {
         ;
@@ -37,11 +38,5 @@ void Ship::update(sf::Time& delta) {
     applyInput(rotSpeed, dCoef);
 
     // update position
-    position += velocity;
-
-    // update shape position
-    shape->setPosition(getPosition());
-    sf::Vector2f unit = sf::Vector2f(0,-1); // TODO move so not remade every frame
-
-    shape->setRotation(degBetVec(unit, direction));
+    shape->move(velocity);
 }

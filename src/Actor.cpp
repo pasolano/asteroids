@@ -3,7 +3,6 @@
 // default constructor
 // face up
 Actor::Actor(float r) {
-    direction.y = -1;
     alive = true;
     radius = r;
 }
@@ -17,8 +16,8 @@ void Actor::accelerate(sf::Vector2f& acc) {
     accelerate(acc.x, acc.y);
 }
 
-sf::Vector2f& Actor::getPosition() {
-    return position;
+sf::Vector2f Actor::getPosition() {
+    return shape->getPosition();
 }
 
 bool Actor::isVisible() {
@@ -35,4 +34,14 @@ bool Actor::isAlive() {
 
 float Actor::getRadius() {
     return radius;
+}
+
+void Actor::rotate(float deg) {
+    shape->rotate(deg);
+}
+
+// return degrees from Vector2(1, 0);
+float Actor::getRotation() {
+    // shape function returns degrees from Vector2(0, -1);
+    return shape->getRotation() - 90;
 }

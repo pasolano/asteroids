@@ -32,8 +32,8 @@ void PlayerView::draw(std::vector<Actor*>& actors) {
     for (Actor* a : actors) {
         assert(a->getShape() != nullptr); // ensure shape was assigned
         if (a->isVisible()) {
-            sf::Shape* s = a->getShape();
-            window->draw(*(a->getShape()));
+            sf::Shape* s = updateShape(a);
+            window->draw(*s);
         }
     }
 
@@ -42,8 +42,8 @@ void PlayerView::draw(std::vector<Actor*>& actors) {
 
 // checks for out of bounds
 // if yes, teleports actor to opposite end of screen
-void PlayerView::outOfBounds(Actor* actor) {
-    sf::Vector2f& pos = actor->getPosition();
+void PlayerView::putInBounds(Actor* actor) {
+    sf::Vector2f pos = actor->getPosition();
     float rad = actor->getRadius();
     sf::Vector2u windims = window->getSize();
 
@@ -55,4 +55,8 @@ void PlayerView::outOfBounds(Actor* actor) {
     if (pos.x + rad < 0) pos.x = windims.x + rad;
     // right
     if (pos.x - rad > windims.x) pos.x = -rad;
+}
+
+sf::Shape* PlayerView::updateShape(Actor* actor) {
+    return actor->getShape();
 }

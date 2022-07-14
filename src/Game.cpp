@@ -20,7 +20,7 @@ void Game::update() {
 
     for (Actor* a : actors) {
         a->update(delta);
-        view->outOfBounds(a);
+        view->putInBounds(a);
     }
 
     view->draw(actors);
@@ -32,6 +32,6 @@ Game::Game() {
     setOngoing(true);
     view = new PlayerView();
     
-    ship = new Ship(20, 0.1, 0.0006);
+    ship = new Ship(20, 0.02, 180);
     actors.push_back(ship);
 }

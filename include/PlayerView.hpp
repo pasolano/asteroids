@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "KeyData.hpp"
 #include "Actor.hpp"
+// #include "VecMath.hpp"
 
 #pragma once
 
@@ -12,5 +13,6 @@ class PlayerView {
         bool isOpen();
         void draw(std::vector<Actor*>&);
         PlayerView();
-        void outOfBounds(Actor*);
+        void putInBounds(Actor*);
+        sf::Shape* updateShape(Actor*);
 };

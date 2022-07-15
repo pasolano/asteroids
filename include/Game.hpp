@@ -1,14 +1,16 @@
 #include "PlayerView.hpp"
 #include "Ship.hpp"
-#include <vector>
+#include <unordered_map>
+#include <cassert>
+#include <iostream>
 
 #pragma once
 
 class Game {
     bool ongoing;
     PlayerView* view;
-
-    std::vector<Actor*> actors;
+    int last_id;
+    std::unordered_map<int, Actor*> actors;
 
     Ship* ship;
     sf::Clock* dClock;

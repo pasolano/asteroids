@@ -2,9 +2,9 @@
 
 // default constructor
 // face up
-Actor::Actor(float r) {
+Actor::Actor(float yFrac, sf::Vector2u& winSize) : winSize(winSize) {
     alive = true;
-    radius = r;
+    radius = yFrac * winSize.y;
 }
 
 void Actor::accelerate(float x, float y) {
@@ -40,12 +40,23 @@ void Actor::rotate(float deg) {
     shape->rotate(deg);
 }
 
-// return degrees from Vector2(1, 0);
 float Actor::getRotation() {
-    // shape function returns degrees from Vector2(0, -1);
-    return shape->getRotation() - 90;
+    return shape->getRotation();
 }
 
 void Actor::setPosition(sf::Vector2f pos) {
     shape->setPosition(pos);
+}
+
+Actor::~Actor() {
+    delete shape;
+}
+
+void Actor::setRotation(float rot) {
+    shape->setRotation(rot);
+}
+
+sf::Vector2f Actor::getDirection() {
+    float rot = shape->getRotation();
+    return VecMath::vecAtDeg(rot);
 }

@@ -35,6 +35,6 @@ float VecMath::degBetVec(sf::Vector2f& v1, sf::Vector2f& v2) {
 }
 
 sf::Vector2f VecMath::vecAtDeg(float deg) {
-    float rads = degToRad(deg);
+    float rads = degToRad(deg - 90);
     return sf::Vector2f(cos(rads), sin(rads));
 }

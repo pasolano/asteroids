@@ -1,14 +1,16 @@
 #include <KeyData.hpp>
 
-std::map<int, Action> KeyData::keymap = {{71, Left},
-                                         {72, Right},
-                                         {73, Up},
-                                         {74, Down}};
+std::map<sf::Keyboard::Key, Action> KeyData::keymap = {{sf::Keyboard::Left, Left},
+                                                       {sf::Keyboard::Right, Right},
+                                                       {sf::Keyboard::Up, Up},
+                                                       {sf::Keyboard::Down, Down},
+                                                       {sf::Keyboard::Space, Shoot}};
 
 std::map<Action, bool> KeyData::keystate = {{Left, false},
                                             {Right, false},
                                             {Up, false},
-                                            {Down, false}};
+                                            {Down, false},
+                                            {Shoot, false}};
 
 KeyData::KeyData() {
     // TODO: read from config
@@ -18,10 +20,14 @@ bool KeyData::getKeyState(Action act) {
     return keystate[act];
 }
 
-void KeyData::setKeyState(int keycode, bool pressed) {
+void KeyData::setKeyState(sf::Keyboard::Key keycode, bool pressed) {
     auto temp = keymap.find(keycode);
     if (temp != keymap.end()) {
         Action action = temp->second;
-        keystate[action] = pressed;
+        setKeyState(action, pressed);
     }
+}
+
+void KeyData::setKeyState(Action action, bool pressed) {
+    keystate[action] = pressed;
 }

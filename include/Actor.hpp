@@ -4,12 +4,13 @@
 
 #pragma once
 
-class Actor{
+class Actor {
     protected:
         bool alive;
         sf::Shape* shape;
         sf::Vector2f velocity;
         float radius;
+        sf::Vector2u& winSize;
 
     public:
         void accelerate(float, float);
@@ -18,10 +19,13 @@ class Actor{
         virtual bool isVisible();
         bool isAlive();
         sf::Shape* getShape();
-        Actor(float);
+        Actor(float, sf::Vector2u&);
+        virtual ~Actor();
         virtual void update(sf::Time&) = 0;
         void rotate(float);
         float getRadius();
         float getRotation();
         void setPosition(sf::Vector2f);
+        void setRotation(float);
+        sf::Vector2f getDirection();
 };

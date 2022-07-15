@@ -27,15 +27,18 @@ void PlayerView::handleEvents() {
     }
 }
 
-void PlayerView::draw(std::vector<Actor*>& actors) {
+void PlayerView::draw(std::unordered_map<int, Actor*>& actors) {
     window->clear();
 
-    for (Actor* a : actors) {
-        assert(a->getShape() != nullptr); // ensure shape was assigned
+    auto iter = actors.begin();
+    while (iter != actors.end()) {
+        auto& a = iter->second;
+        assert(a->getShape()); // ensure shape was assigned
         if (a->isVisible()) {
             sf::Shape* s = updateShape(a);
             window->draw(*s);
         }
+        iter++;
     }
 
     window->display();

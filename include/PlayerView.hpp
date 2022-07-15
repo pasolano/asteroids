@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "KeyData.hpp"
 #include "Actor.hpp"
+#include <unordered_map>
 // #include "VecMath.hpp"
 
 #pragma once
@@ -12,7 +13,7 @@ class PlayerView {
     public:
         void handleEvents();
         bool isOpen();
-        void draw(std::vector<Actor*>&);
+        void draw(std::unordered_map<int, Actor*>&);
         PlayerView();
         void putInBounds(Actor*);
         sf::Shape* updateShape(Actor*);

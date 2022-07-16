@@ -9,7 +9,7 @@ PlayerView::PlayerView()
     settings.antialiasingLevel = 8;
 }
 
-bool PlayerView::isOpen()
+bool PlayerView::isOpen() const
 {
     return window->isOpen();
 }
@@ -39,12 +39,12 @@ void PlayerView::draw(std::unordered_map<int, Actor *> &actors)
     auto iter = actors.begin();
     while (iter != actors.end())
     {
-        auto &a = iter->second;
-        assert(a->getShape()); // ensure shape was assigned
-        if (a->isVisible())
+        auto &a_ref = iter->second;
+        assert(a_ref->getShape()); // ensure shape was assigned
+        if (a_ref->isVisible())
         {
-            sf::Shape *s = updateShape(a);
-            window->draw(*s);
+            sf::Shape *a_shape = updateShape(a_ref);
+            window->draw(*a_shape);
         }
         iter++;
     }
@@ -81,7 +81,7 @@ sf::Shape *PlayerView::updateShape(Actor *actor)
     return actor->getShape();
 }
 
-sf::Vector2u PlayerView::getWinSize()
+sf::Vector2u PlayerView::getWinSize() const
 {
     return window->getSize();
 }

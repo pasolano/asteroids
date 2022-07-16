@@ -11,10 +11,10 @@ protected:
     float radius;
     sf::Shape *shape;
     sf::Vector2f velocity;
-    sf::Vector2u &winSize;
+    sf::Vector2u winSize;
 
 public:
-    Actor(float, sf::Vector2u &);
+    Actor(float, sf::Vector2u);
     virtual ~Actor();
 
     sf::Vector2f getDirection() const;
@@ -25,12 +25,12 @@ public:
     bool isAlive() const;
     virtual bool isVisible() const;
 
-    void setPosition(sf::Vector2f);
+    void setPosition(sf::Vector2f pos);
     void setRotation(float);
 
     void accelerate(float, float);
-    void accelerate(sf::Vector2f &);
+    void accelerate(sf::Vector2f vel);
     void rotate(float);
 
-    virtual void update(sf::Time &) = 0;
+    virtual void update(const sf::Time &delta) = 0;
 };

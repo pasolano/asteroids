@@ -2,7 +2,7 @@
 
 // default constructor
 // face up
-Actor::Actor(float yFrac, sf::Vector2u &winSize) : winSize(winSize)
+Actor::Actor(float yFrac, sf::Vector2u winSize) : winSize(winSize)
 {
     radius = yFrac * winSize.y;
 }
@@ -13,7 +13,7 @@ void Actor::accelerate(float x, float y)
     velocity.y += y;
 }
 
-void Actor::accelerate(sf::Vector2f &acc)
+void Actor::accelerate(sf::Vector2f acc)
 {
     accelerate(acc.x, acc.y);
 }

@@ -18,7 +18,7 @@ class Ship : public Actor
 
 public:
     Ship(float, sf::Vector2u &, float, float, std::unordered_map<int, Actor *> &, int &);
-    void update(sf::Time &);
+    void update(const sf::Time &);
     void applyInput(float, float);
     void shoot();
 };

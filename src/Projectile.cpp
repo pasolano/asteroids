@@ -11,10 +11,10 @@ Projectile::Projectile(float yFrac, sf::Vector2u &winSize, sf::Vector2f pos, sf:
     velocity = vel;
 }
 
-void Projectile::update(sf::Time &delta)
+void Projectile::update(const sf::Time &delta)
 {
-    sf::Int64 ms = delta.asMicroseconds();
-    float dCoef = ms / 1000000.f;
+    sf::Int64 micro_sec = delta.asMicroseconds();
+    float dCoef = micro_sec / 1000000.f;
 
     shape->move(velocity * dCoef);
 }

@@ -40,8 +40,8 @@ void Ship::applyInput(float rotSpeed, float dCoef)
     }
     if (KeyData::getKeyState(Shoot))
     {
-        sf::Time t = bullet_timer.getElapsedTime();
-        sf::Int64 micro_since_shot = t.asMicroseconds();
+        sf::Time time_since_shot = bullet_timer.getElapsedTime();
+        sf::Int64 micro_since_shot = time_since_shot.asMicroseconds();
         if (micro_since_shot > 1000000)
         {
             bullet_timer.restart();
@@ -51,7 +51,7 @@ void Ship::applyInput(float rotSpeed, float dCoef)
 }
 
 // Update ship every frame
-void Ship::update(sf::Time &delta)
+void Ship::update(const sf::Time &delta)
 {
     // calculate acceleration
     sf::Int64 ms = delta.asMicroseconds();

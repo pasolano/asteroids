@@ -6,18 +6,18 @@
 
 #pragma once
 
-class Game {
-    bool ongoing;
-    PlayerView* view;
+class Game
+{
+    bool ongoing = true;
+    PlayerView *view = new PlayerView();
     int last_id;
-    std::unordered_map<int, Actor*> actors;
+    std::unordered_map<int, Actor *> actors;
+    Ship *ship;
+    sf::Clock *dClock = new sf::Clock();
 
-    Ship* ship;
-    sf::Clock* dClock;
-
-    public:
-        void update();
-        void setOngoing(bool);
-        bool isOngoing();
-        Game();
+public:
+    void update();
+    void setOngoing(bool);
+    bool isOngoing() const;
+    Game();
 };

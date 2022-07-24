@@ -10,7 +10,7 @@ float VecMath::radToDeg(float rad)
     return rad * 180 / M_PI;
 }
 
-void VecMath::rotateVector(sf::Vector2f &v, float rads, bool inRad, float dCoef = 1)
+void VecMath::rotateVector(sf::Vector2f &v, float rads, bool inRad, float dCoef /* = 1 */)
 {
     if (!inRad)
         rads = degToRad(rads);

@@ -32,22 +32,39 @@ void PlayerView::handleEvents()
     }
 }
 
-void PlayerView::draw(std::unordered_map<int, Actor *> &actors)
+void PlayerView::draw(Actor* actor) {
+    assert(actor->getShape()); // ensure shape was assigned
+    if (actor->isVisible())
+    {
+        sf::Shape *a_shape = updateShape(actor);
+        window->draw(*a_shape);
+    }
+}
+
+void PlayerView::draw(std::unordered_map<int, Actor*>& items) {
+    auto iter = items.begin();
+    while (iter != items.end())
+    {
+        auto &a_ref = iter->second;
+        draw(a_ref);
+        iter++;
+    }
+}
+
+void PlayerView::draw_all(std::unordered_map<int, Actor*> ships, std::unordered_map<int, Actor*> asteroids)
 {
     window->clear();
 
-    auto iter = actors.begin();
-    while (iter != actors.end())
+    auto iter = ships.begin();
+    while (iter != ships.end())
     {
-        auto &a_ref = iter->second;
-        assert(a_ref->getShape()); // ensure shape was assigned
-        if (a_ref->isVisible())
-        {
-            sf::Shape *a_shape = updateShape(a_ref);
-            window->draw(*a_shape);
-        }
+        auto a_ref = iter->second;
+        draw(a_ref);
+        draw(((Ship*) a_ref)->getBullets());
         iter++;
     }
+
+    draw(asteroids);
 
     window->display();
 }

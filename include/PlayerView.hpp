@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "KeyData.hpp"
-#include "Actor.hpp"
+#include "Ship.hpp"
 #include <unordered_map>
+#include "Asteroid.hpp"
 // #include "VecMath.hpp"
 
 #pragma once
@@ -15,7 +16,9 @@ private:
 public:
     void handleEvents();
     bool isOpen() const;
-    void draw(std::unordered_map<int, Actor *> &);
+    void draw_all(std::unordered_map<int, Actor*> ships, std::unordered_map<int, Actor*> asteroids);
+    void draw(std::unordered_map<int, Actor*>& items);
+    void draw(Actor* actor);
     PlayerView();
     void putInBounds(Actor *);
     sf::Shape *updateShape(Actor *);

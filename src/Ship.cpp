@@ -3,9 +3,8 @@
 
 // yFrac is what fraction of the y-axis the ship should be compared to screen
 // size
-Ship::Ship(float yFrac, sf::Vector2u &winSize, float thrust, float rs,
-           std::unordered_map<int, Actor *> &actors, int &last_id)
-    : Actor(yFrac, winSize), actors(actors), last_id(last_id)
+Ship::Ship(float yFrac, sf::Vector2u &winSize, float thrust, float rs)
+    : Actor(yFrac, winSize)
 {
     this->thrust = thrust;
     rotSpeed = rs;
@@ -60,6 +59,12 @@ void Ship::update(const sf::Time &delta)
 
     // update position
     shape->move(velocity);
+
+    // update bullets
+    for (auto iter = bullets.begin(); iter != bullets.end(); iter++) {
+        iter->second->update(delta);
+    }
+    
 }
 
 void Ship::shoot()
@@ -68,6 +73,10 @@ void Ship::shoot()
     const auto vel = dir * bullet_speed;
     const auto offset = dir * getRadius();
     const auto front_of_ship = getPosition() + offset;
-    actors[last_id++] =
+    bullets[bullet_id++] =
         new Projectile(bullet_rad, winSize, front_of_ship, vel);
+}
+
+std::unordered_map<int, Actor*>& Ship::getBullets() {
+    return bullets;
 }

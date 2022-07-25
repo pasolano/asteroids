@@ -10,6 +10,18 @@ void Game::setOngoing(bool val)
     ongoing = val;
 }
 
+void Game::update_m(std::unordered_map<int, Actor*>& m, sf::Time delta) {
+    auto iter = m.begin();
+    while (iter != m.end())
+    {
+        auto &curr = iter->second;
+        assert(curr);
+        curr->update(delta);
+        view->putInBounds(curr);
+        iter++;
+    }
+}
+
 void Game::update()
 {
     if (!view->isOpen())
@@ -20,24 +32,20 @@ void Game::update()
 
     view->handleEvents();
 
-    sf::Time delta = dClock->restart();
+    sf::Time delta = dClock->restart(); 
 
-    auto iter = actors.begin();
-    while (iter != actors.end())
-    {
-        auto &curr = iter->second;
-        assert(curr);
-        curr->update(delta);
-        view->putInBounds(curr);
-        iter++;
+    update_m(ships, delta);
+    for (auto& s : ships) {
+        update_m(((Ship*) s.second)->getBullets(), delta);
     }
+    update_m(asteroids, delta);
 
-    view->draw(actors);
+    view->draw_all(ships, asteroids);
 }
 
 Game::Game()
 {
     sf::Vector2u winSize = view->getWinSize();
 
-    actors[last_id++] = new Ship(0.05, winSize, 0.02, 180, actors, last_id);
+    ships[0] = new Ship(0.05, winSize, 0.02, 180);
 }

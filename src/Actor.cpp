@@ -73,3 +73,15 @@ sf::Vector2f Actor::getDirection() const
     float rot = shape->getRotation();
     return VecMath::vecAtDeg(rot);
 }
+
+bool Actor::collidesWith(Actor *actor) const
+{
+    float total_radius = getRadius() + actor->getRadius();
+    float distance = VecMath::dist(getPosition(), actor->getPosition());
+    return total_radius >= distance;
+}
+
+void Actor::setAlive(bool val)
+{
+    alive = val;
+}

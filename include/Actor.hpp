@@ -26,11 +26,14 @@ public:
     virtual bool isVisible() const;
 
     void setPosition(sf::Vector2f pos);
-    void setRotation(float);
+    void setRotation(float rot);
+    void setAlive(bool val);
 
     void accelerate(float, float);
     void accelerate(sf::Vector2f vel);
     void rotate(float);
+
+    bool collidesWith(Actor *actor) const;
 
     virtual void update(const sf::Time &delta) = 0;
 };

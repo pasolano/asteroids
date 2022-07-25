@@ -46,3 +46,10 @@ sf::Vector2f VecMath::vecAtDeg(float deg)
     float rads = degToRad(deg - 90);
     return sf::Vector2f(cos(rads), sin(rads));
 }
+
+float VecMath::dist(sf::Vector2f v1, sf::Vector2f v2)
+{
+    float x_diff = v2.x - v1.x;
+    float y_diff = v2.y - v1.y;
+    return sqrt(x_diff * x_diff + y_diff * y_diff);
+}

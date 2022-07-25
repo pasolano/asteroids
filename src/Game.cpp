@@ -42,6 +42,26 @@ void Game::update()
     }
     update_m(asteroids, delta);
 
+    // check for collisions
+    // TODO ship collision
+    for (auto &s : ships)
+    {
+        auto &bullets_ref = ((Ship *)s.second)->getBullets();
+        for (auto &b : bullets_ref)
+        {
+            Projectile *b_ref = (Projectile *)b.second;
+            for (auto &a : asteroids)
+            {
+                if (b_ref->collidesWith(a.second))
+                {
+                    // TODO remove from respective maps
+                    b_ref->setAlive(false);
+                    a.second->setAlive(false);
+                }
+            }
+        }
+    }
+
     view->draw_all(ships, asteroids);
 }
 
@@ -51,5 +71,5 @@ Game::Game()
 
     ships[0] = new Ship(0.05, winSize, 0.02, 180);
 
-    asteroids[0] = new Asteroid(0.1, winSize);
+    asteroids[0] = new Asteroid(0.05, winSize);
 }

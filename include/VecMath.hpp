@@ -14,4 +14,5 @@ public:
     static float lenOfVec(sf::Vector2f v);
     static float degBetVec(sf::Vector2f v1, sf::Vector2f v2);
     static sf::Vector2f vecAtDeg(float v);
+    static float dist(sf::Vector2f v1, sf::Vector2f v2);
 };

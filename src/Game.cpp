@@ -10,16 +10,13 @@ void Game::setOngoing(bool val)
     ongoing = val;
 }
 
-void Game::update_m(std::unordered_map<int, Actor *> &m, sf::Time delta)
+void Game::update_l(std::list<Actor *> &l, sf::Time delta)
 {
-    auto iter = m.begin();
-    while (iter != m.end())
+    for (auto &a : l)
     {
-        auto &curr = iter->second;
-        assert(curr);
-        curr->update(delta);
-        view->putInBounds(curr);
-        iter++;
+        assert(a);
+        a->update(delta);
+        view->putInBounds(a);
     }
 }
 
@@ -35,28 +32,37 @@ void Game::update()
 
     sf::Time delta = dClock->restart();
 
-    update_m(ships, delta);
+    update_l(ships, delta);
     for (auto &s : ships)
     {
-        update_m(((Ship *)s.second)->getBullets(), delta);
+        update_l(((Ship *)s)->getBullets(), delta);
     }
-    update_m(asteroids, delta);
+    update_l(asteroids, delta);
 
     // check for collisions
     // TODO ship collision
     for (auto &s : ships)
     {
-        auto &bullets_ref = ((Ship *)s.second)->getBullets();
+        auto &bullets_ref = ((Ship *)s)->getBullets();
         for (auto &b : bullets_ref)
         {
-            Projectile *b_ref = (Projectile *)b.second;
+            Projectile *b_ref = (Projectile *)b;
             for (auto &a : asteroids)
             {
-                if (b_ref->collidesWith(a.second))
+                if (b_ref->collidesWith(a))
                 {
-                    // TODO remove from respective maps
+                    /* TODO
+                     * remove from respective maps and delete objects
+                     * or
+                     * reuse objects when needed
+                     */
                     b_ref->setAlive(false);
-                    a.second->setAlive(false);
+
+                    // TODO: this after loop finishes
+                    // bullets_ref.erase(b.first);
+                    // delete b_ref;
+
+                    a->setAlive(false);
                 }
             }
         }
@@ -69,7 +75,7 @@ Game::Game()
 {
     sf::Vector2u winSize = view->getWinSize();
 
-    ships[0] = new Ship(0.05, winSize, 0.02, 180);
+    ships.push_back(new Ship(0.05, winSize, 0.02, 180));
 
-    asteroids[0] = new Asteroid(0.05, winSize);
+    asteroids.push_back(new Asteroid(0.05, winSize));
 }

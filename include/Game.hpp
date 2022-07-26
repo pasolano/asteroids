@@ -10,8 +10,8 @@ class Game
 {
     bool ongoing = true;
     PlayerView *view = new PlayerView();
-    std::unordered_map<int, Actor*> ships;
-    std::unordered_map<int, Actor*> asteroids;
+    std::list<Actor *> ships;
+    std::list<Actor *> asteroids;
     sf::Clock *dClock = new sf::Clock();
 
 public:
@@ -19,5 +19,5 @@ public:
     void setOngoing(bool);
     bool isOngoing() const;
     Game();
-    void update_m(std::unordered_map<int, Actor*>& m, sf::Time delta);
+    void update_l(std::list<Actor *> &m, sf::Time delta);
 };

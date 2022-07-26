@@ -61,9 +61,9 @@ void Ship::update(const sf::Time &delta)
     shape->move(velocity);
 
     // update bullets
-    for (auto iter = bullets.begin(); iter != bullets.end(); iter++)
+    for (auto &b : bullets)
     {
-        iter->second->update(delta);
+        b->update(delta);
     }
 }
 
@@ -73,11 +73,10 @@ void Ship::shoot()
     const auto vel = dir * bullet_speed;
     const auto offset = dir * getRadius();
     const auto front_of_ship = getPosition() + offset;
-    bullets[bullet_id++] =
-        new Projectile(bullet_rad, winSize, front_of_ship, vel);
+    bullets.push_back(new Projectile(bullet_rad, winSize, front_of_ship, vel));
 }
 
-std::unordered_map<int, Actor *> &Ship::getBullets()
+std::list<Actor *> &Ship::getBullets()
 {
     return bullets;
 }

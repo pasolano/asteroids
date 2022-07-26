@@ -16,9 +16,9 @@ private:
 public:
     void handleEvents();
     bool isOpen() const;
-    void draw_all(std::unordered_map<int, Actor*> ships, std::unordered_map<int, Actor*> asteroids);
-    void draw(std::unordered_map<int, Actor*>& items);
-    void draw(Actor* actor);
+    void draw_all(std::list<Actor *> ships, std::list<Actor *> asteroids);
+    void draw(std::list<Actor *> &items);
+    void draw(Actor *actor);
     PlayerView();
     void putInBounds(Actor *);
     sf::Shape *updateShape(Actor *);

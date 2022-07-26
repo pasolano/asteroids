@@ -2,7 +2,7 @@
 #include "Actor.hpp"
 #include "KeyData.hpp"
 #include "Projectile.hpp"
-#include <unordered_map>
+#include <list>
 
 #pragma once
 
@@ -13,7 +13,7 @@ class Ship : public Actor
     sf::Clock bullet_timer;
     float bullet_rad = 0.005;
     float bullet_speed = 2000;
-    std::unordered_map<int, Actor *> bullets;
+    std::list<Actor *> bullets;
     int bullet_id = 0;
 
 public:
@@ -21,5 +21,5 @@ public:
     void update(const sf::Time &);
     void applyInput(float, float);
     void shoot();
-    std::unordered_map<int, Actor *> &getBullets();
+    std::list<Actor *> &getBullets();
 };

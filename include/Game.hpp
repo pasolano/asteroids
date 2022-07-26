@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <cassert>
 #include <iostream>
+#include <cstdlib>
 
 #pragma once
 
@@ -20,4 +21,5 @@ public:
     bool isOngoing() const;
     Game();
     void update_l(std::list<Actor *> &m, sf::Time delta);
+    void createAsteroids(int count);
 };

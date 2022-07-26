@@ -1,6 +1,6 @@
 #include "Asteroid.hpp"
 
-Asteroid::Asteroid(float yFrac, sf::Vector2u &winSize)
-    : Projectile(yFrac, winSize, sf::Vector2f(10, 10), sf::Vector2f(50, 50))
+Asteroid::Asteroid(float yFrac, sf::Vector2u &winSize, sf::Vector2f pos, sf::Vector2f vel)
+    : Projectile(yFrac, winSize, pos, vel)
 {
 }

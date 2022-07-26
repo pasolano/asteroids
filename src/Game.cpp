@@ -77,5 +77,21 @@ Game::Game()
 
     ships.push_back(new Ship(0.05, winSize, 0.02, 180));
 
-    asteroids.push_back(new Asteroid(0.05, winSize));
+    createAsteroids(3);
+}
+
+void Game::createAsteroids(int count)
+{
+    sf::Vector2u winSize = view->getWinSize();
+
+    for (int i = 0; i < count; i++)
+    {
+        // random position in window
+        sf::Vector2f pos = sf::Vector2f(rand() % winSize.x, rand() % winSize.y);
+
+        // get vector of length 50 in random direction
+        sf::Vector2f vel = VecMath::vecAtDeg(rand() % 360) * 50.f;
+
+        asteroids.push_back(new Asteroid(0.05, winSize, pos, vel));
+    }
 }

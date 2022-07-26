@@ -73,6 +73,8 @@ void Game::update()
 
 Game::Game()
 {
+    srand(time(nullptr));
+
     sf::Vector2u winSize = view->getWinSize();
 
     ships.push_back(new Ship(0.05, winSize, 0.02, 180));

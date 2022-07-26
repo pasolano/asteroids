@@ -39,32 +39,32 @@ void Game::update()
     }
     update_l(asteroids, delta);
 
-    // check for collisions
     // TODO ship collision
     for (auto &s : ships)
     {
         auto &bullets_ref = ((Ship *)s)->getBullets();
-        for (auto &b : bullets_ref)
+        auto bullets_iter = bullets_ref.begin();
+
+        while (bullets_iter != bullets_ref.end())
         {
-            Projectile *b_ref = (Projectile *)b;
-            for (auto &a : asteroids)
+            bool collided = false;
+            auto asteroids_iter = asteroids.begin();
+            while (asteroids_iter != asteroids.end())
             {
-                if (b_ref->collidesWith(a))
+                if ((*bullets_iter)->collidesWith(*asteroids_iter))
                 {
-                    /* TODO
-                     * remove from respective maps and delete objects
-                     * or
-                     * reuse objects when needed
-                     */
-                    b_ref->setAlive(false);
-
-                    // TODO: this after loop finishes
-                    // bullets_ref.erase(b.first);
-                    // delete b_ref;
-
-                    a->setAlive(false);
+                    delete *asteroids_iter;
+                    delete *bullets_iter;
+                    asteroids.erase(asteroids_iter);
+                    bullets_ref.erase(bullets_iter++);
+                    collided = true;
+                    break;
                 }
+                else
+                    asteroids_iter++;
             }
+            if (!collided)
+                bullets_iter++;
         }
     }
 

@@ -39,7 +39,7 @@ void Game::update()
     }
     update_l(asteroids, delta);
 
-    // TODO ship collision
+    // bullet and asteroid check
     for (auto &s : ships)
     {
         auto &bullets_ref = ((Ship *)s)->getBullets();
@@ -65,6 +65,29 @@ void Game::update()
             }
             if (!collided)
                 bullets_iter++;
+        }
+    }
+
+    // asteroid and ship check
+    for (auto &s : ships)
+    {
+        auto a_iter = asteroids.begin();
+
+        while (a_iter != asteroids.end())
+        {
+            if (s->collidesWith(*a_iter))
+            {
+                s->setAlive(false);
+
+                delete *a_iter;
+                asteroids.erase(a_iter);
+
+                break;
+            }
+            else
+            {
+                a_iter++;
+            }
         }
     }
 
